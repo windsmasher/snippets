@@ -275,5 +275,36 @@
       "",
       "module.exports = { up, down };"
     ]
+  },
+  "mongo-index-set-migration": {
+    "prefix": "ss-migration-index",
+    "body": [
+      "/* eslint-disable @typescript-eslint/no-empty-function */",
+      "/* eslint-disable @typescript-eslint/no-var-requires */",
+      "const mongoose = require('mongoose');",
+      "",
+      "// data",
+      "const indexName = 'name_1'",
+      "const indexSet = { name: 1 };",
+      "const modelName = entity.name;",
+      "const collectionName = COLLECTION_NAME;",
+      "const schema = NameSchema;",
+      "",
+      "// generic",
+      "mongoose.model(modelName, schema, collectionName);",
+      "",
+      "async function up() {",
+      "  await this(modelName, collectionName).collection.createIndex(indexSet, {",
+      "    background: true,",
+      "    name: indexName,",
+      "  });",
+      "}",
+      "",
+      "async function down() {",
+      "  await this(modelName, collectionName).collection.dropIndex(indexName);",
+      "}",
+      "",
+      "module.exports = { up, down };"
+    ]
   }
 }
